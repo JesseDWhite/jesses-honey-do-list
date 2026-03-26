@@ -1,0 +1,29 @@
+.input-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  padding-bottom: 25px;
+}
+
+.list-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.list-item.clicked {
+  transform: scale(0.98);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px inset;
+}
+
+main {
+  padding: 15px;
+}
