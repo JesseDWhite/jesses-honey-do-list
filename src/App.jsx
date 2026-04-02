@@ -9,7 +9,9 @@ import {
   doc,
 } from "firebase/firestore";
 import * as MUI from "@mui/material";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import RadioButtonUncheckedRoundedIcon from "@mui/icons-material/RadioButtonUncheckedRounded";
 
 function App() {
   async function fetchData() {
@@ -53,12 +55,11 @@ function App() {
         return newItem;
       } else return listItem;
     });
-    const sortedList = sortList(newList);
 
     setActiveIndex(index);
+    setTimeout(() => setActiveIndex(null), 120);
     setList(newList);
     await setDoc(doc(db, "to-do-list", item.id), newItem);
-    setTimeout(() => setActiveIndex(null), 150);
   }
 
   async function deleteItem(item) {
@@ -136,9 +137,7 @@ function App() {
         {list.map((item, index) => (
           <div
             key={item.id}
-            className={
-              activeIndex === index ? "list-item clicked" : "list-item"
-            }
+            className={`list-item ${activeIndex === index ? "clicked" : ""} ${item.complete ? "complete" : ""}`}
           >
             <MUI.IconButton
               color="error"
@@ -146,11 +145,16 @@ function App() {
                 deleteItem(item);
               }}
             >
-              <DeleteOutlinedIcon />{" "}
+              <DeleteOutlineRoundedIcon />{" "}
             </MUI.IconButton>
             <MUI.FormControlLabel
               control={
-                <MUI.Checkbox checked={item?.complete} color="success" />
+                <MUI.Checkbox
+                  checked={item?.complete}
+                  color="success"
+                  icon={<RadioButtonUncheckedRoundedIcon />}
+                  checkedIcon={<CheckCircleRoundedIcon />}
+                />
               }
               label={
                 <>
@@ -163,7 +167,9 @@ function App() {
                     {formatDate(item.date_added)}
                     {": "}
                   </MUI.Box>
-                  <MUI.Box component="span">{item.task}</MUI.Box>
+                  <MUI.Box style={{ letterSpacing: "1.5px" }} component="span">
+                    {item.task}
+                  </MUI.Box>
                 </>
               }
               onChange={() => closeItem(item, index)}

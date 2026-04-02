@@ -17,11 +17,17 @@
   transition:
     transform 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
+  background-color: rgba(128, 128, 128, 0.11);
 }
 
 .list-item.clicked {
   transform: scale(0.98);
   box-shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px inset;
+}
+
+.list-item.complete {
+  background-color: rgba(35, 206, 35, 0.11);
+  color: white;
 }
 
 main {
